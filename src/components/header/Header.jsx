@@ -20,6 +20,12 @@ const Header = () => {
           <a href="#" className="text-black font-semibold hover:underline">
             FAQS
           </a>
+          <a href="#" className="text-black font-semibold hover:underline">
+            LOGIN
+          </a>
+          <a href="#" className="text-black font-semibold hover:underline">
+            SIGNUP
+          </a>
         </nav>
       </header>
     </>
