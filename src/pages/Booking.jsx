@@ -137,7 +137,7 @@ export default function BikeBookingForm() {
         </form>
 
         <div className="w-full flex-1">
-          <h2 className="text-2xl font-bold mb-4 text-blue-800">BOOK NOW</h2>
+          <h2 className="text-2xl font-bold mb-4 text-[#025CA3]">BOOK NOW</h2>
           <p className="mb-4">
             <strong>Booking Procedure:</strong><br />
             We have simple form and terms and conditions, which you need to fill up before hiring the bikes.
