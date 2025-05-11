@@ -1,22 +1,22 @@
-import { Route, Routes } from 'react-router-dom'
-import HomePage from '../pages/HomePage'
-import Booking from '../pages/Booking'
+
+import { Route, Routes } from "react-router-dom";
+import HomePage from "../pages/HomePage";
+import Booking from "../pages/Booking";
+import Details from "../pages/Details";
 import Faqs from '../pages/Faqs.jsx'
 import About from '../pages/About.jsx'
 
 const Router = () => {
   return (
-
     <Routes>
-
-        <Route path="/" element={<HomePage/>} />
-        <Route path="/booking" element={<Booking/>} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/booking" element={<Booking />} />
+      <Route path="/details" element={<Details />} />
         <Route path="/faqs" element={<Faqs/>}/>
          <Route path="/about" element={<About/>}/>
 
     </Routes>
-   
-  )
-}
+  );
+};
 
-export default Router
+export default Router;
