@@ -39,13 +39,7 @@ const scooter = () => {
                     <p className="mt-2">Start prices from Rs 1500 per day</p>
                     <button className="bg-[#025CA3] px-4 py-2 text-white mt-4 cursor-pointer hover:bg-blue-400">Hire Now</button>
                 </div>
-
-               
-
-                
-
-                
-            </div>
+                </div>
 
             </div>
 

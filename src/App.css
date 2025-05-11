@@ -2,6 +2,14 @@ html{
     overflow-x: hidden !important;
 }
 
+:root{
+    --font-poppins: "Poppins", sans-serif
+}
+
+*{
+    font-family: var(--font-poppins);
+}
+
 .wrapper{
     width: 1300px;
     margin: 0px auto;
