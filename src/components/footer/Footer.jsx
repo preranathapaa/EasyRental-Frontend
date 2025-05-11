@@ -50,7 +50,7 @@ const Footer = () => {
                     </div>
                     </div>
                     {/* Bottom Bar */}
-                <div className="mt-12 border-t pt-6 flex flex-col md:flex-row justify-between text-sm text-center md:text-left">
+                <div className="mt-12 border-t pt-6 flex flex-col md:flex-row justify-around text-sm text-center md:text-left">
                     <p>© 2025 | All Right Reserved by EasyRentAl</p>
                     
                 </div>
