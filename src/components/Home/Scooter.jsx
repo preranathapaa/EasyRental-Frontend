@@ -5,6 +5,7 @@ import { Activa } from "../Images";
 import { Aprilia } from "../Images";
 const scooter = () => {
   return (
+
     <>
       <div className="wrapper">
         <div className=" grid grid-cols-4 gap-8 my-10">
@@ -59,3 +60,4 @@ const scooter = () => {
 };
 
 export default scooter;
+

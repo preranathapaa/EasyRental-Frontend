@@ -4,6 +4,7 @@ import { Yamaha } from "../Images";
 import { Duke } from "../Images";
 import { B } from "../Images";
 const Bikes = () => {
+
   return (
     <>
       <div className="wrapper">
@@ -58,3 +59,4 @@ const Bikes = () => {
 };
 
 export default Bikes;
+
