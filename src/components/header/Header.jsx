@@ -36,10 +36,10 @@ const Header = () => {
             </a>
 
             <div className="flex space-x-4">
-              <button className="px-5 py-2 border border-[#025CA3] text-[#025CA3] font-semibold rounded-md bg-gray-100 hover:bg-gray-200">
+              <button className="px-5 py-2 border border-[#025CA3] text-[#025CA3] font-semibold rounded-md hover:bg-blue-200">
                 LOG IN
               </button>
-              <button className="px-5 py-2 bg-[#025CA3] text-white font-semibold rounded-md hover:bg-[#025CA3]">
+              <button className="px-5 py-2 border border-[#025CA3] text-[#025CA3] font-semibold rounded-md hover:bg-blue-200">
                 REGISTER
               </button>
             </div>
