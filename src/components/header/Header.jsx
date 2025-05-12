@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className=" bg-[#fffafa] ">
@@ -36,10 +39,16 @@ const Header = () => {
             </a>
 
             <div className="flex space-x-4">
-              <button className="px-5 py-2 border border-[#025CA3] text-[#025CA3] font-semibold rounded-md hover:bg-blue-200">
+              <button
+                onClick={() => navigate("/login")}
+                className="px-5 py-2 border hover:cursor-pointer border-[#025CA3] text-[#025CA3] font-semibold rounded-md hover:bg-blue-200"
+              >
                 LOG IN
               </button>
-              <button className="px-5 py-2 border border-[#025CA3] text-[#025CA3] font-semibold rounded-md hover:bg-blue-200">
+              <button
+                onClick={() => navigate("/Registration")}
+                className="px-5 py-2 hover:cursor-pointer border border-[#025CA3] text-[#025CA3] font-semibold rounded-md hover:bg-blue-200"
+              >
                 REGISTER
               </button>
             </div>
