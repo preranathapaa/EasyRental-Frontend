@@ -14,7 +14,7 @@ const Hero = () => {
         {/* Left Section */}
         <div className="flex-1 text-left space-y-6 max-w-md mr-20">
           <div className="space-y-2 font-Bebas Neue">
-            <div className="w-10 h-1 bg-black"></div>
+            <div className="w-15 h-1 bg-gray-600 rounded-xl"></div>
             <h1 className="text-4xl font-semibold font-Bebas Neue">
               WE PROVIDE <span className="text-[#025CA3] font-bold">BIKES</span>{" "}
               <br />

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react';
 
 
 const faqs = () => {
@@ -53,7 +54,9 @@ const faqs = () => {
             Upon returning the bike, it must be in the same condition as it was received, along with documents. If the bike is damaged (such as broken parts, theft, scratches, punctures, accidents, or issues with the police), the cost of repairs will be the responsibility of the person who rented the bike. If I am unable to return the bike, documents. I will be responsible for all costs related to its return, including those for mechanics, guides, transportation, food, and accommodation.
           </p>
         </div>
+        
       </div>
+    
 
       {/* Few things to remember */}
       <h3 className="mt-10 text-lg font-bold">Few things to remember before hiring a bike:</h3>
