@@ -1,4 +1,7 @@
+
 import React, { useState } from "react";
+
+
 
 const faqs = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -55,6 +58,7 @@ const faqs = () => {
         Please read carefully all the content below:
       </p>
 
+
       <div className="space-y-3">
         {faqData.map((faq, index) => (
           <div key={index} className="border-b pb-1">
@@ -73,6 +77,7 @@ const faqs = () => {
           </div>
         ))}
       </div>
+    
 
       {/* Rest content kept unchanged */}
       <h3 className="mt-8 text-base font-bold">
