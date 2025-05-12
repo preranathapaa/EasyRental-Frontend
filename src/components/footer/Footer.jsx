@@ -4,8 +4,9 @@ import { FaInstagram } from "react-icons/fa";
 const Footer = () => {
     return (
         <>
-            <footer className="bg-[#025CA3] text-[#FFFFFF] px-8 py-8 border-t">
-                <div className="max-w-7xl flex  justify-around items-center">
+            <footer className="bg-[#025CA3]  text-[#FFFFFF] px-8 py-8 border-t">
+                <div className='wrapper'>
+                    <div className=" flex  justify-around items-center">
                     {/* Column 1: Logo and Description */}
                     <div>
                         <div className=" mb-4 text-2xl font-bold text-[#FFFFFF]">
@@ -53,6 +54,7 @@ const Footer = () => {
                 <div className="mt-12 border-t pt-6 flex flex-col md:flex-row justify-around text-sm text-center md:text-left">
                     <p>© 2025 | All Right Reserved by EasyRentAl</p>
 
+                </div>
                 </div>
 
             </footer>
