@@ -1,60 +1,92 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { HiMenu } from "react-icons/hi";
+import { IoClose } from "react-icons/io5";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
 
+  const links = [
+    { name: "Home", path: "/" },
+    { name: "Bikes For Rent", path: "/booking" },
+    { name: "About Us", path: "/about" },
+    { name: "FAQS", path: "/faqs" },
+  ];
+
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
-      <div className=" bg-[#fffafa] ">
-        <header className="wrapper flex justify-between items-center   py-5 font-poppins">
+      <nav className="bg-[#fffafa] ">
+        <div className="wrapper">
+          <div className="flex items-center justify-between font-poppins px-4 py-5">
           <div className="text-[27px] font-bold text-[#025CA3]">
             Easy <span className="text-[#025CA3]">RentAL</span>
           </div>
 
-          <nav className="flex justify-between items-center space-x-8">
-            <a
-              href="/"
-              className="text-black font-semibold hover:text-[#025CA3]"
-            >
-              HOME
-            </a>
-            <a
-              href="/booking"
-              className="text-black font-semibold hover:text-[#025CA3]"
-            >
-              BIKES FOR RENT
-            </a>
-            <a
-              href="/about"
-              className="text-black font-semibold hover:text-[#025CA3]"
-            >
-              ABOUT US
-            </a>
-            <a
-              href="/faqs"
-              className="text-black font-semibold hover:text-[#025CA3]"
-            >
-              FAQS
-            </a>
+          {/* Desktop Menu */}
 
-            <div className="flex space-x-4">
-              <button
-                onClick={() => navigate("/login")}
-                className="px-5 py-2 border hover:cursor-pointer border-[#025CA3] text-[#025CA3] font-semibold rounded-md hover:bg-blue-200"
-              >
-                LOG IN
-              </button>
-              <button
-                onClick={() => navigate("/Registration")}
-                className="px-5 py-2 hover:cursor-pointer border border-[#025CA3] text-[#025CA3] font-semibold rounded-md hover:bg-blue-200"
-              >
-                REGISTER
-              </button>
+          <div className="hidden md:flex gap-6 items-center ">
+            <ul className="hidden md:flex gap-6">
+              {links.map((link, index) => (
+                <li key={index}>
+                  <Link
+                    to={link.path}
+                    className="text-black font-semibold hover:text-[#025CA3] transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <div className="flex flex-row gap-6">
+              <button onClick={() => navigate("/login")} className="px-5 py-2 border hover:cursor-pointer border-[#025CA3]  text-[#025CA3] font-semibold rounded-md hover:bg-blue-200">Login</button>
+              <button onClick={() => navigate("/Registration")} className="px-5 py-2 hover:cursor-pointer border border-[#025CA3] text-[#025CA3] font-semibold rounded-md hover:bg-blue-200">Signup</button>
             </div>
-          </nav>
-        </header>
-      </div>
+          </div>
+
+
+
+          {/* Hamburger Icon */}
+
+          <div className="md:hidden">
+            <button onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? <IoClose className="cursor-pointer" size={30} /> : <HiMenu className="cursor-pointer" size={30} />}
+            </button>
+          </div>
+        </div>
+
+
+        {/* Mobile Nav */}
+
+        {
+          isOpen && (
+            <>
+
+              <ul className="flex md:hidden flex-col items-center justify-center gap-4 px-4 pb-4 ">
+                {links.map((link, index) => (
+                  <li key={index}>
+                    <Link
+                      to={link.path}
+                      className="text-black font-semibold hover:text-[#025CA3] transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="flex md:hidden flex-col items-center justify-center gap-4 px-4 pb-4">
+                <button onClick={() => navigate("/login")} className="px-5 py-2 border hover:cursor-pointer border-[#025CA3] text-[#025CA3] font-semibold rounded-md hover:bg-blue-200">Login</button>
+                <button onClick={() => navigate("/Registration")} className="px-5 py-2 hover:cursor-pointer border border-[#025CA3] text-[#025CA3] font-semibold rounded-md hover:bg-blue-200">Signup</button>
+              </div>
+
+            </>
+          )
+        }
+        </div>
+      </nav>
     </>
   );
 };

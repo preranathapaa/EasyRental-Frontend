@@ -7,6 +7,7 @@ import Faqs from "../pages/Faqs.jsx";
 import About from "../pages/About.jsx";
 import Login from "../pages/Login.jsx";
 import Registration from "../pages/Registration.jsx";
+import Bookingconfirmation from '../pages/Bookingconfirmed.jsx'
 
 const Router = () => {
   return (
@@ -21,6 +22,7 @@ const Router = () => {
       <Route path="/Registration" element={<Registration />} />
 
       <Route path="/details/:id" element={<Details />} />
+      <Route path="/confirmation" element={<Bookingconfirmation />} />
        
          
 

@@ -45,8 +45,8 @@ const Bikes = () => {
     {
       id: 4,
       img: B,
-      title: "ROYAL ENFIELD",
-      subtitle: "HUNTER 350",
+      title: "ROYAL ",
+      subtitle: "ENFIELD 350",
       buttonText: "Hire Now",
       description: "Start price from Rs2500 per day",
       price: "Rs 2500 per day",
@@ -62,17 +62,24 @@ const Bikes = () => {
 
   return (
     <div className="wrapper">
-      <div className="text-center mt-10">
+      <div className="text-center mt-10 ">
+        <div className="flex items-center gap-3 justify-center">
+           <div className="h-[4px] w-8  bg-gray-400 rounded-xl " ></div>
         <h2 className="text-gray-500 font-semibold tracking-widest">Bike</h2>
+        <div className="h-[4px] w-8  bg-gray-400 rounded-xl" ></div>
+
+
+        </div>
+       
         <h1 className="text-4xl font-bold mt-2">
           GET YOUR <span className="text-[#025CA3]">BIKE FOR RENT</span>
         </h1>
       </div>
 
-      <div className="grid grid-cols-4 gap-8 my-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 my-10">
         {bikes.map((bike) => (
           <div key={bike.id} className="bg-gray-200 p-8 rounded-md shadow-2xl flex flex-col">
-            <img src={bike.img} alt={bike.title} />
+            <img className="w-auto" src={bike.img} alt={bike.title} />
             <h2 className="text-xl font-bold mt-5 text-center">
               {bike.title} <span className="text-[#025CA3]">{bike.subtitle}</span>
             </h2>

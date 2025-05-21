@@ -4,9 +4,9 @@ import { FaInstagram } from "react-icons/fa";
 const Footer = () => {
     return (
         <>
-            <footer className="bg-[#025CA3]  text-[#FFFFFF] px-8 py-8 border-t">
+            <footer className="bg-[#025CA3]  text-[#FFFFFF]  py-8 border-t">
                 <div className='wrapper'>
-                    <div className=" flex  justify-around items-center">
+                    <div className="flex flex-col md:flex-row  justify-between items-start gap-10 md:items-center">
                     {/* Column 1: Logo and Description */}
                     <div>
                         <div className=" mb-4 text-2xl font-bold text-[#FFFFFF]">
@@ -22,12 +22,12 @@ const Footer = () => {
 
                     {/* Column 2: Page Links */}
                     <div className=''>
-                        <h3 className="text-xl font-bold mb-4 mt-10">Pages</h3>
+                        <h3 className="text-xl font-bold ">Pages</h3>
                         <ul className="space-y-2 text-lg">
-                            <li><a href="/about" className="hover:underline">Home</a></li>
-                            <li><a href="/showroom" className="hover:underline">Bike For Rent</a></li>
-                            <li><a href="/contact" className="hover:underline">Aboutus</a></li>
-                            <li><a href="/legal" className="hover:underline">Faqs</a></li>
+                            <li><a href="/" className="hover:underline">Home</a></li>
+                            <li><a href="/booking" className="hover:underline">Bike For Rent</a></li>
+                            <li><a href="/about" className="hover:underline">Aboutus</a></li>
+                            <li><a href="/faqs" className="hover:underline">Faqs</a></li>
                         </ul>
                     </div>
 
