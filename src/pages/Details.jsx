@@ -1,27 +1,42 @@
 import React from "react";
-import { useParams, useLocation, Navigate, useNavigate } from "react-router";
+import { useParams,  useNavigate } from "react-router";
+import { useGetVehiclesDetailsQuery } from "../app/vehicles/vehiclesApi";
 
 const Details = () => {
+
+  const {id} = useParams();
 const navigate =useNavigate();
-  const { state } = useLocation();
+ 
+
+  const {data, isLoading} = useGetVehiclesDetailsQuery(id);
+
+  console.log("single details", data);
+
+  console.log("image of details", data?.data?.image);
+
+  const vehicle = data?.data;
+
+  console.log("vehicles data", vehicle)
   
   return (
     <div className="wrapper">
-      <div className="flex items-center mt-20">
+
+      
+      <div className="flex items-center mt-20 mb-20">
         <div className="w-[60%]">
-          <img className="w-full h-full object-contain" src={state.img} alt={state.title} />
+          <img className="w-full h-full object-contain" src={vehicle?.image} alt={vehicle?.name} />
         </div>
 
         <div className="flex w-[40%] flex-col bg-white px-1 h-full pl-10 justify-center">
           <h2 className="text-[40px] font-bold text-black">
-            {state.title} <span className="text-[#025CA3]">{state.subtitle}</span>
+            {vehicle?.name} <span className="text-[#025CA3]">{vehicle?.brand}</span>
           </h2>
 
           <div className="mt-8 space-y-4">
-            <p className="text-black text-[20px] font-medium">Price: {state.price}</p>
-            <p className="text-black text-[20px] font-medium">Engine Capacity: {state.engine}</p>
-            <p className="text-black text-[20px] font-medium">Milage: {state.milage}</p>
-            <p className="text-black text-[20px] font-medium">Fuel Tank Capacity: {state.fuel}</p>
+            <p className="text-black text-[20px] font-medium">Price: {vehicle?.price}</p>
+            <p className="text-black text-[20px] font-medium">Engine Capacity: {vehicle?.engine}</p>
+            <p className="text-black text-[20px] font-medium">Milage: {vehicle?.mileage}</p>
+            <p className="text-black text-[20px] font-medium">Fuel Tank Capacity: {vehicle?.registration_num}</p>
           </div>
           <button
           onClick={() =>navigate("/booking")}
