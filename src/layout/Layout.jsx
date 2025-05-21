@@ -10,8 +10,8 @@ const Layout = () => {
 
             <Header />
 
-            <Router />
-            <Footer />
+             <Router />
+            <Footer /> 
         </>
     )
 }

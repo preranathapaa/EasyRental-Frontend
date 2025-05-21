@@ -83,7 +83,7 @@ const scooter = () => {
           GET YOUR <span className="text-[#025CA3]">SCOOTER FOR RENT</span>
         </h1>
 
-        <div className=" grid grid-cols-4 gap-8 my-10">
+        <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 my-10">
 
 
 
