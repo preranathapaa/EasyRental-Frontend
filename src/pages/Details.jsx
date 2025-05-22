@@ -5,7 +5,7 @@ import { useGetVehiclesDetailsQuery } from "../app/vehicles/vehiclesApi";
 const Details = () => {
 
   const {id} = useParams();
-  const navigate =useNavigate();
+const navigate =useNavigate();
  
 
   const {data, isLoading} = useGetVehiclesDetailsQuery(id);
@@ -15,6 +15,9 @@ const Details = () => {
   console.log("image of details", data?.data?.image);
 
   const vehicle = data?.data;
+
+  const Vehicename = vehicle?.name;
+  console.log("name of vehicle", Vehicename);
 
   console.log("vehicles data", vehicle)
   
@@ -39,7 +42,7 @@ const Details = () => {
             <p className="text-black text-[20px] font-medium">Fuel Tank Capacity: {vehicle?.registration_num}</p>
           </div>
           <button
-          onClick={() =>navigate("/booking")}
+          onClick={() =>navigate(`/booking/${id}`, {state: {Vehicename}})}
           className="mt-10 px-5 py-2 bg-[#025CA3] text-white font-semibold rounded-md  hover:cursor-pointer hover:bg-[#014b85] transition-colors">
             Hire Now
           </button>

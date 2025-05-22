@@ -1,167 +1,127 @@
-
-import React, { useState } from "react";
+import { useFormik } from "formik";
+import React from "react";
+import { useLocation, useNavigate, useParams } from "react-router";
+import { useRentVehicleMutation } from "../app/vehicles/vehiclesApi";
 
 export default function BikeBookingForm() {
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    hireDate: "",
-    dropOffDate: "",
-    bike: ""
+  const { id } = useParams();
+  const { state } = useLocation();
+  const bikeName = state?.Vehicename || "";
+  const vehicleId = state?.vehicle_id || id || "";
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  const [booking] = useRentVehicleMutation();
+
+  const formik = useFormik({
+    initialValues: {
+      book_date: "",
+      dropoffdate: "",
+    },
+    onSubmit: async (values) => {
+      if (!token) {
+        navigate("/login", { state: { from: location.pathname } });
+        return;
+      }
+
+      try {
+        await booking({
+          data: {
+            book_date: values.book_date,
+            dropoffdate: values.dropoffdate,
+            vehicle_id: vehicleId,
+          },
+          token: `Bearer ${token}`,
+        }).unwrap();
+
+        navigate("/confirmation")
+    
+
+      
+      } catch (err) {
+        console.error("Booking failed:", err);
+        alert("Booking failed. Please try again.");
+      }
+    },
   });
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Booking Submitted", form);
-  };
-
-   const handleSelectChange = (e) => {
-    setSelectedBike(e.target.value);
-   }
-
   return (
-  <>
     <div className="wrapper">
       <div className="flex flex-col lg:flex-row justify-between items-start gap-16 p-10 font-sans text-gray-700">
         <form
-          onSubmit={handleSubmit}
+          onSubmit={formik.handleSubmit}
           className="w-full flex-1 space-y-4 bg-white shadow-md p-6 rounded-2xl"
         >
-          <h2 className="text-base text-center font-poppins text-gray-800 ">Please Fill Up The Form In Detail For The Rental Inquiry:</h2>
+          <h2 className="text-base text-center font-poppins text-gray-800">
+            Please Fill Up The Form In Detail For The Rental Inquiry:
+          </h2>
 
-
-          <div className="flex  gap-4 items-center">
-
-            <label className="w-1/3 font-bold text-[16px]" htmlFor=""> Name</label>
-
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={form.name}
-              onChange={handleChange}
-              className="w-2/3 p-2 border rounded-xl  focus:ring"
-              required
-            />
-          </div>
-
-
-
-          <div className="flex items-center gap-4">
-
-            <label className="w-1/3 font-bold text-[16px]" htmlFor="">Phone Number</label>
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Phone Number"
-              value={form.phone}
-              onChange={handleChange}
-              className="w-2/3 p-2 border rounded-xl  focus:ring"
-              required
-            />
-          </div>
-
-          <div className="flex items-center gap-4">
-            <label className="w-1/3 font-bold text-[16px]">Email</label>
-            <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
-            className="w-2/3 p-2 border rounded-xl focus:outline-none focus:ring"
-            required
-          />
-          </div>
           <div className="flex items-center gap-4">
             <label className="w-1/3 font-bold text-[16px]">Hire Date</label>
             <input
-            type="date"
-            name="hireDate"
-            value={form.hireDate}
-            onChange={handleChange}
-            className="w-2/3 p-2 border rounded-xl focus:outline-none focus:ring"
-            required
-          />
-           </div>
+              type="date"
+              name="book_date"
+              value={formik.values.book_date}
+              onChange={formik.handleChange}
+              className="w-2/3 p-2 border rounded-xl focus:outline-none focus:ring"
+              required
+            />
+          </div>
 
           <div className="flex items-center gap-4">
             <label className="w-1/3 font-bold text-[16px]">Dropoff Date</label>
             <input
-            type="date"
-            name="dropdate"
-            value={form.dropOffDate}
-            onChange={handleChange}
-            className="w-2/3 p-2 border rounded-xl focus:outline-none focus:ring"
-            required
-          />
+              type="date"
+              name="dropoffdate"
+              value={formik.values.dropoffdate}
+              onChange={formik.handleChange}
+              className="w-2/3 p-2 border rounded-xl focus:outline-none focus:ring"
+              required
+            />
           </div>
+
           <div className="flex items-center gap-4">
-            <label className="w-1/3 font-bold text-[16px]">Select Bike</label>
-            <select
-            id="bikeSelect"
-            value={form.bike}
-            onChange={handleSelectChange}
-            className="p-2 w-2/3 border rounded-xl focus:outline-none focus:ring text-gray-700"
-          
-            >
-            <option value="" disabled>
-              Select Bike
-            </option>
-            <option value="Yamaha">Yamaha mt 15 v2</option>
-            <option value="ktm">Ktm 200 duke</option>
-            <option value="honda">Honda SP 125</option>
-            <option value="royal ">Royal enfield hunter 350</option>
-            <option value="Honda dio">Honda Dio 125</option>
-            <option value="Scooter">TVS jupiter 125</option>
-            <option value="Aprilla">Aprilla SR 160</option>
-            <option value="Honda activa">Honda Activa</option>
-    
-
-          </select>
-            
-
+            <label className="w-1/3 font-bold text-[16px]">Selected Bike</label>
+            <input
+              type="text"
+              value={bikeName}
+              readOnly
+              className="w-2/3 p-2 border rounded-xl focus:outline-none focus:ring"
+            />
           </div>
-          
+
           <button
+          
             type="submit"
-            className="w-full bg-[#025CA3] hover:bg-[#025CA3] text-white py-2 rounded-xl"
+            className="w-full bg-[#025CA3] hover:bg-[#1c2329] cursor-pointer text-white py-2 rounded-xl"
           >
             BOOK
           </button>
         </form>
 
+
+
         <div className="w-full flex-1">
           <h2 className="text-2xl font-bold mb-4 text-[#025CA3]">BOOK NOW</h2>
           <p className="mb-4">
             <strong>Booking Procedure:</strong><br />
-            We have simple form and terms and conditions, which you need to fill up before hiring the bikes.
-            Here are some required documents which you need to submit before renting motorbike at City Motorbike.
+            Submit required documents and fill out the form to book a bike.
           </p>
           <ul className="list-disc ml-5 mb-4">
-            <li>Original Passport with Nepalese visa or refundable cash deposit.</li>
-            <li>Id card or Citizenship card original.</li>
-            <li>Valid driving license from your country or International Driving license for the hire.</li>
+            <li>Original Passport with visa or refundable cash deposit.</li>
+            <li>ID card or Citizenship card (original).</li>
+            <li>Valid national or international driving license.</li>
             <li>
-              Or Someone from Nepal who can stay as a Guarantor for the security along with his/her
-              citizenship, Address, Contact details or requesting for the bike hire with their letter
-              head where you are working or travel agents.
+              Or a local guarantor with contact info or employer recommendation letter.
             </li>
           </ul>
           <p>
-            We have bike expertise who don’t compromise in mechanism and we don’t compromise in the service. We
-            assure you that we provide all conditioned and maintained motorbikes.<br />
-            If you have any questions, please write us on citymotorbike.com@gmail.com.
+            Our bikes are well-maintained and we provide excellent service.
+            For questions, contact: <strong>citymotorbike.com@gmail.com</strong>
           </p>
         </div>
+      
       </div>
     </div>
-    </>
-  )
+  );
 }
-
