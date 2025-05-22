@@ -1,6 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 export default function BookingConfirmation() {
+
+  const navigate = useNavigate();
+
   const bookingDetails = {
     bookingId: "BR-4572-2025",
     userName: "Jane Doe",
@@ -56,10 +60,8 @@ export default function BookingConfirmation() {
         </div>
 
         <div className="flex justify-between mt-6">
-          <button className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100">
-            Book Another
-          </button>
-          <button className="px-4 py-2 rounded-lg bg-[#025CA3] text-white hover:bg-blue-700">
+          
+          <button onClick={() => navigate("/")} className="px-4 py-2 rounded-lg bg-[#025CA3] text-white hover:bg-blue-700">
             Go to Home
           </button>
         </div>

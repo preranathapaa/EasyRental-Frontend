@@ -1,29 +1,62 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useSignuUserMutation } from "../app/auth/userApi";
+import { useFormik } from "formik";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const RegistrationForm = () => {
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
 
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  const [signupUser, { isLoading }] = useSignuUserMutation()
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    // Add validation or API call logic here
-  };
+  const { values, errors, touched, handleSubmit, handleChange } = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      address: "",
+      phone: ""
+    },
+
+    onSubmit: async (val) => {
+      try {
+        const response = await signupUser(val).unwrap();
+        console.log("Registration successfull: ", response);
+
+        Swal.fire({
+          icon: "success",
+          title: "Registration Successful!",
+          text: "You have been successfully registered.",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+
+        navigate("/Login")
+        
+      } catch (err) {
+        console.log("registration error: ", err);
+
+        Swal.fire({
+          icon: "error",
+          title: err.data.error[0] || "An error occurred",
+          text: "There was an error while registering.",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+
+        
+      }
+    }
+  })
+
 
   return (
     <div className="flex items-center justify-center h-auto my-10">
@@ -40,9 +73,9 @@ const RegistrationForm = () => {
           <label className="block text-black mb-2 text-lg">Full Name</label>
           <input
             type="text"
-            name="fullName"
-            value={formData.fullName}
+            name="name"
             onChange={handleChange}
+            value={values.name}
             required
             placeholder="Enter your name"
             className="w-full px-5 py-2 border rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -55,10 +88,36 @@ const RegistrationForm = () => {
           <input
             type="email"
             name="email"
-            value={formData.email}
             onChange={handleChange}
+            value={values.email}
             required
             placeholder="Enter a email"
+            className="w-full px-5 py-2 border rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div className="mb-5">
+          <label className="block text-black mb-2 text-lg">Address</label>
+          <input
+            type="text"
+            name="address"
+            onChange={handleChange}
+            value={values.address}
+            required
+            placeholder="Enter your address"
+            className="w-full px-5 py-2 border rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div className="mb-5">
+          <label className="block text-black mb-2 text-lg">Phone</label>
+          <input
+            type="bigint"
+            name="phone"
+            onChange={handleChange}
+            value={values.phone}
+            required
+            placeholder="Enter your phone number"
             className="w-full px-5 py-2 border rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -69,8 +128,8 @@ const RegistrationForm = () => {
           <input
             type={showPassword ? "text" : "password"}
             name="password"
-            value={formData.password}
             onChange={handleChange}
+            value={values.password}
             required
             placeholder="Enter password"
             className="w-full px-5 py-2 border rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -91,8 +150,7 @@ const RegistrationForm = () => {
           <input
             type={showConfirmPassword ? "text" : "password"}
             name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
+
             required
             placeholder="Re-enter password"
             className="w-full px-5 py-2 border rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"

@@ -1,20 +1,81 @@
+import { useFormik } from "formik";
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Swal from "sweetalert2";
+import { useLoginUserMutation } from "../app/auth/userApi";
+import { useLocation, useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { addUser } from "../app/auth/usersSlice";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    console.log("Email:", email, "Password:", password);
-  };
+  const navigate = useNavigate();
+  const location = useLocation();
+  const redirectPath = location.state?.from || "/";
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [loginUser, { isloading }] = useLoginUserMutation();
+
+  const dispatch = useDispatch();
+
+  const { values, errors, touched, handleSubmit, handleChange } = useFormik({
+    initialValues: {
+      email: "",
+      password: ""
+
+
+    },
+    onSubmit: async (val) => {
+      try {
+        const response = await loginUser(val).unwrap();
+
+        console.log("Login Successfull:", response);
+
+        const userData = response.Authuser;
+
+        dispatch(addUser(userData));
+
+        const token = response.token;
+        console.log("token is", token)
+
+        localStorage.setItem("token", token);
+
+
+        Swal.fire({
+          icon: "success",
+          title: "Login Successful!",
+          text: "You have successfully Login.",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+
+        navigate(redirectPath);
+
+      } catch (err) {
+        console.log("Error while login", err);
+
+        Swal.fire({
+          icon: "error",
+          title: err.data.message || "An error occurred",
+          text: "There was an error while Login.",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      }
+    }
+  })
+
 
   return (
     <div className="flex items-center justify-center h-auto  my-10">
       <form
-        onSubmit={handleLogin}
+
+        onSubmit={handleSubmit}
+
         className="bg-gray-200 p-10 rounded-2xl shadow-lg w-full max-w-xl"
       >
         <h2 className="text-2xl font-medium text-center text-[#025CA3] mb-8">
@@ -25,9 +86,11 @@ const LoginForm = () => {
           <label className="block text-black mb-2 text-lg">Email</label>
           <input
             type="email"
+            name="email"
+            onChange={handleChange}
+            value={values.email}
             className="w-full px-5 py-2 border rounded-md text-lg outline-none"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+
             placeholder="Enter your email"
             required
           />
@@ -37,9 +100,11 @@ const LoginForm = () => {
           <label className="block text-black mb-2 text-lg">Password</label>
           <input
             type={showPassword ? "text" : "password"}
+            name="password"
+            onChange={handleChange}
+            value={values.password}
             className="w-full px-5 py-2 border rounded-md text-lg outline-none "
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+
             placeholder="Enter your password"
             required
           />
@@ -53,6 +118,7 @@ const LoginForm = () => {
 
         <button
           type="submit"
+          loading={isloading}
           className=" hover:cursor-pointer w-full bg-[#025CA3] text-white py-3 rounded-md text-lg hover:bg-blue-700 transition-colors"
         >
           Login
