@@ -5,7 +5,7 @@ import { useGetVehiclesDetailsQuery } from "../app/vehicles/vehiclesApi";
 const Details = () => {
 
   const {id} = useParams();
-const navigate =useNavigate();
+  const navigate =useNavigate();
  
 
   const {data, isLoading} = useGetVehiclesDetailsQuery(id);
