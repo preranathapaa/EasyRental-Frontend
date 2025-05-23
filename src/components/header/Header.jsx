@@ -12,7 +12,7 @@ const Header = () => {
 
   const links = [
     { name: "Home", path: "/" },
-    { name: "Bikes For Rent", path: "/booking" },
+    { name: "Our services", path: "/service" },
     { name: "About Us", path: "/about" },
     { name: "FAQS", path: "/faqs" },
   ];
