@@ -39,7 +39,7 @@ const Bikes = ({bikes}) => {
 
             <Link
               to={`/details/${vehicle.id}`}
-              className="bg-[#025CA3] text-white mt-4 py-2 px-4 rounded hover:bg-blue-400 cursor-pointer"
+              className="bg-[#025CA3] text-white mt-4 py-2 px-4 rounded hover:bg-blue-400 cursor-pointer text-center"
             >
               Hire Now
             </Link>

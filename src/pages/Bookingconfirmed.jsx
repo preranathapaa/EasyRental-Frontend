@@ -1,18 +1,20 @@
 import React from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 export default function BookingConfirmation() {
 
   const navigate = useNavigate();
 
-  const bookingDetails = {
-    bookingId: "BR-4572-2025",
-    userName: "Jane Doe",
-    bikeModel: "Trek FX 3 Disc",
-    rentalStart: "May 16, 2025, 10:00 AM",
-    rentalEnd: "May 18, 2025, 4:00 PM",
-    location: "Downtown Bike Hub, San Francisco",
-  };
+  const {state: bookingDetails} = useLocation();
+  
+   if (!bookingDetails) {
+    return (
+      <div className="text-center mt-20 text-xl font-semibold">
+        No booking data found.
+      </div>
+    );
+  }
+
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
@@ -36,15 +38,12 @@ export default function BookingConfirmation() {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-gray-800">Booking Confirmed!</h1>
-            <p className="text-gray-600">Thank you, {bookingDetails.userName}</p>
+            <p className="text-gray-600">Thank you</p>
           </div>
         </div>
 
         <div className="bg-gray-50 rounded-lg p-4 space-y-3">
-          <div>
-            <span className="font-semibold">Booking ID:</span>{" "}
-            {bookingDetails.bookingId}
-          </div>
+          
           <div>
             <span className="font-semibold">Bike Model:</span>{" "}
             {bookingDetails.bikeModel}
@@ -57,11 +56,16 @@ export default function BookingConfirmation() {
             <span className="font-semibold">Pickup Location:</span>{" "}
             {bookingDetails.location}
           </div>
+
+          <div>
+            <span className="font-semibold">Total Cost:</span>{" "}
+            {bookingDetails.totalCost}
+          </div>
         </div>
 
         <div className="flex justify-between mt-6">
           
-          <button onClick={() => navigate("/")} className="px-4 py-2 rounded-lg bg-[#025CA3] text-white hover:bg-blue-700">
+          <button onClick={() => navigate("/")} className="px-4 py-2 rounded-lg cursor-pointer bg-[#025CA3] text-white hover:bg-blue-700">
             Go to Home
           </button>
         </div>

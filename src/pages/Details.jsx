@@ -17,6 +17,10 @@ const navigate =useNavigate();
   const vehicle = data?.data;
 
   const Vehicename = vehicle?.name;
+
+  const price = vehicle?.price;
+  console.log("Price of vehicle", price);
+
   console.log("name of vehicle", Vehicename);
 
   console.log("vehicles data", vehicle)
@@ -39,10 +43,10 @@ const navigate =useNavigate();
             <p className="text-black text-[20px] font-medium">Price: {vehicle?.price}</p>
             <p className="text-black text-[20px] font-medium">Engine Capacity: {vehicle?.engine}</p>
             <p className="text-black text-[20px] font-medium">Milage: {vehicle?.mileage}</p>
-            <p className="text-black text-[20px] font-medium">Fuel Tank Capacity: {vehicle?.registration_num}</p>
+            <p className="text-black text-[20px] font-medium">Registration Num: {vehicle?.registration_num}</p>
           </div>
           <button
-          onClick={() =>navigate(`/booking/${id}`, {state: {Vehicename}})}
+          onClick={() =>navigate(`/booking/${id}`, {state: {Vehicename, price}})}
           className="mt-10 px-5 py-2 bg-[#025CA3] text-white font-semibold rounded-md  hover:cursor-pointer hover:bg-[#014b85] transition-colors">
             Hire Now
           </button>
